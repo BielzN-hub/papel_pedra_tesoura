@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Papel, Tesoura, Pedra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .button-container {
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        .score {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Jogo de Papel, Tesoura, Pedra</h1>
+
+<div class="button-container">
+    <button onclick="jogar('pedra')">Pedra</button>
+    <button onclick="jogar('papel')">Papel</button>
+    <button onclick="jogar('tesoura')">Tesoura</button>
+</div>
+
+<div class="result" id="result"></div>
+
+<div class="score" id="score">
+    <p>Você: <span id="scoreUser">0</span></p>
+    <p>Computador: <span id="scoreComputer">0</span></p>
+</div>
+
+<script>
+    let scoreUser = 0;
+    let scoreComputer = 0;
+
+    function jogar(escolhaUsuario) {
+        const opcoes = ['pedra', 'papel', 'tesoura'];
+        const escolhaComputador = opcoes[Math.floor(Math.random() * 3)];
+
+        let resultado = '';
+
+        if (escolhaUsuario === escolhaComputador) {
+            resultado = 'Empate!';
+        } else if (
+            (escolhaUsuario === 'pedra' && escolhaComputador === 'tesoura') ||
+            (escolhaUsuario === 'papel' && escolhaComputador === 'pedra') ||
+            (escolhaUsuario === 'tesoura' && escolhaComputador === 'papel')
+        ) {
+            resultado = 'Você ganhou!';
+            scoreUser++;
+        } else {
+            resultado = 'Você perdeu!';
+            scoreComputer++;
+        }
+
+        document.getElementById('result').textContent = `Você escolheu ${escolhaUsuario}. O computador escolheu ${escolhaComputador}. ${resultado}`;
+        document.getElementById('scoreUser').textContent = scoreUser;
+        document.getElementById('scoreComputer').textContent = scoreComputer;
+    }
+</script>
+
+</body>
+</html>
